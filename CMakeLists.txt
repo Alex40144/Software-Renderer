@@ -6,8 +6,8 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
 # Our project name
 project (ButtonFactory)
-
-add_executable(ButtonFactory main.cpp)
+include_directories(include)
+add_executable(ButtonFactory main.cpp include/vec2.h)
 
 # For finding our SDL2 package!
 INCLUDE(FindPkgConfig)
