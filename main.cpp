@@ -1,12 +1,12 @@
-
+// update
 #include <SDL2/SDL.h>
 #include <vec2.h>
- 
+
 int main()
 {
     int width = 640;
     int height = 480;
- 
+
     SDL_Init(SDL_INIT_VIDEO);
 
     SDL_Window *window = SDL_CreateWindow("Button Factory", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, width, height, 0);
@@ -17,29 +17,35 @@ int main()
 
     SDL_SetWindowMinimumSize(window, 320, 240);
 
-
     bool open = true;
-    while(open){
+    while (open)
+    {
         SDL_Event event;
-        while (SDL_PollEvent(&event)) {
-            if (event.type == SDL_QUIT) {
+        while (SDL_PollEvent(&event))
+        {
+            if (event.type == SDL_QUIT)
+            {
                 open = false;
             }
-            if (event.type == SDL_WINDOWEVENT) {
-                if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED) {
+            if (event.type == SDL_WINDOWEVENT)
+            {
+                if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+                {
                     SDL_GetWindowSize(window, &width, &height);
                     SDL_RenderSetLogicalSize(renderer, width, height);
-
                 }
             }
         }
-        unsigned int *pixels = (unsigned int*)calloc(height * width * 4, 1);
+        unsigned int *pixels = (unsigned int *)calloc(height * width * 4, 1);
 
-        Vec2<int> rect[] = {{50, 50}, {250,250}};
+        Vec2<int> rect[] = {{50, 50}, {250, 250}};
 
-        for (int y = 0; y < height; ++y) {
-            for (int x = 0; x < width; ++x) {
-                if (x > rect[0].GetX() && x < rect[1].GetX() && y > rect[0].GetY() && y < rect[1].GetY()){
+        for (int y = 0; y < height; ++y)
+        {
+            for (int x = 0; x < width; ++x)
+            {
+                if (x > rect[0].GetX() && x < rect[1].GetX() && y > rect[0].GetY() && y < rect[1].GetY())
+                {
                     pixels[x + y * width] = 0x00ffff55;
                 }
             }
