@@ -7,7 +7,9 @@ set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 # Our project name
 project (SoftwareRenderer)
 include_directories(include)
-add_executable(SoftwareRenderer main.cpp include/)
+
+set(SOURCES main.cpp softwareRenderer.cpp)
+add_executable(SoftwareRenderer ${SOURCES})
 
 # For finding our SDL2 package!
 INCLUDE(FindPkgConfig)
