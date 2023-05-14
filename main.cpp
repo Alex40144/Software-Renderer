@@ -3,23 +3,20 @@
 #include <vec3.h>
 #include <polygon.h>
 
-#define SCREEN_WIDTH 640
-#define SCREEN_HEIGHT 480
+int SCREEN_WIDTH = 960;
+int SCREEN_HEIGHT = 540;
 
 int main()
 {
 
     SDL_Init(SDL_INIT_VIDEO);
 
-    SDL_Window *window = SDL_CreateWindow("Software Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI);
+    SDL_Window *window = SDL_CreateWindow("Software Renderer", SDL_WINDOWPOS_CENTERED, SDL_WINDOWPOS_CENTERED, SCREEN_WIDTH, SCREEN_HEIGHT, SDL_WINDOW_ALLOW_HIGHDPI | SDL_WINDOW_RESIZABLE);
 
     SDL_Renderer *renderer = SDL_CreateRenderer(window, -1, SDL_RENDERER_PRESENTVSYNC);
 
     SDL_Texture *texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
 
-    SDL_SetWindowMinimumSize(window, 320, 240);
-
-    uint32_t pixels[SCREEN_HEIGHT * SCREEN_WIDTH];
     bool open = true;
     while (open)
     {
@@ -30,12 +27,21 @@ int main()
             {
                 open = false;
             }
+            if (event.type == SDL_WINDOWEVENT)
+            {
+                if (event.window.event == SDL_WINDOWEVENT_SIZE_CHANGED)
+                {
+                    SDL_GetWindowSize(window, &SCREEN_WIDTH, &SCREEN_HEIGHT);
+                    texture = SDL_CreateTexture(renderer, SDL_PIXELFORMAT_RGBA8888, SDL_TEXTUREACCESS_STREAMING, SCREEN_WIDTH, SCREEN_HEIGHT);
+                }
+            }
         }
+        uint32_t pixels[SCREEN_HEIGHT * SCREEN_WIDTH] = {0};
 
         polygon *line1 = new polygon();
         line1->addPoint(Vec3<int>{150, 150, 0});
-        line1->addPoint(Vec3<int>{550, 300, 0});
-        line1->addEdge(Vec3<int>{150, 150, 0}, Vec3<int>{550, 300, 0});
+        line1->addPoint(Vec3<int>{50, 200, 0});
+        line1->addEdge(Vec3<int>{150, 150, 0}, Vec3<int>{50, 200, 0});
 
         for (int i = 0; i < size(line1->getPointTable()); i++)
         {
