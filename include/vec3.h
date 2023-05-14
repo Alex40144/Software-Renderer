@@ -19,22 +19,32 @@ public:
 public:
     bool operator==(const Vec3 &rhs)
     {
-        return (X == rhs.X && Y == rhs.Y);
+        return (X == rhs.X && Y == rhs.Y && Z == rhs.Z);
     }
 
     bool operator!=(const Vec3 &rhs)
     {
-        return !(X == rhs.X && Y == rhs.Y);
+        return !(X == rhs.X && Y == rhs.Y && Z == rhs.Z);
     }
 
     constexpr Vec3 operator+(const Vec3 &rhs) const
     {
-        return {X + rhs.x, Y + rhs.Y};
+        return {X + rhs.X, Y + rhs.Y, Z + rhs.Z};
     }
 
     constexpr Vec3 operator+(const int rhs) const
     {
-        return {X + rhs, Y + rhs};
+        return {X + rhs, Y + rhs, Z + rhs};
+    }
+
+    constexpr Vec3 operator+(const float rhs) const
+    {
+        return {X + rhs, Y + rhs, Z + rhs};
+    }
+
+    constexpr Vec3 operator+(const double rhs) const
+    {
+        return {X + rhs, Y + rhs, Z + rhs};
     }
 
     constexpr Vec3 &operator+=(const Vec3 &rhs)
@@ -44,12 +54,12 @@ public:
 
     constexpr Vec3 operator-(const Vec3 &rhs) const
     {
-        return {X - rhs.x, Y - rhs.Y};
+        return {X - rhs.x, Y - rhs.Y, Z - rhs.Z};
     }
 
     constexpr Vec3 operator-(const int rhs) const
     {
-        return {X - rhs, Y - rhs};
+        return {X - rhs, Y - rhs, Z - rhs};
     }
 
     constexpr Vec3 &operator-=(const Vec3 &rhs)
@@ -59,12 +69,12 @@ public:
 
     constexpr Vec3 operator*(const Vec3 &rhs) const
     {
-        return {X * rhs.x, Y * rhs.Y};
+        return {X * rhs.x, Y * rhs.Y, Z * rhs.Z};
     }
 
     constexpr Vec3 operator*(const int rhs) const
     {
-        return {X * rhs, Y * rhs};
+        return {X * rhs, Y * rhs, Z * rhs};
     }
 
     constexpr Vec3 &operator*=(const Vec3 &rhs)

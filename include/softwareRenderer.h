@@ -17,6 +17,8 @@ private:
     int SCREEN_HEIGHT;
     std::vector<uint32_t> pixels;
 
+    int focalLenght = 50;
+
     SDL_Window *SDLwindow;
     SDL_Renderer *SDLrenderer;
     SDL_Texture *SDLtexture;
