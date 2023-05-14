@@ -43,8 +43,8 @@ void softwareRenderer::drawPolygon(polygon *polygon)
         rotatedY = (0 * rotatedX) + (cos(Rotation.X) * rotatedY) + (-sin(Rotation.X) * rotatedZ);
         rotatedZ = (0 * rotatedX) + (sin(Rotation.X) * rotatedY) + (cos(Rotation.X) * rotatedZ);
 
-        int projectedX = (focalLenght * rotatedX) / (focalLenght + rotatedZ + 500) + (SCREEN_WIDTH / 2);
-        int projectedY = (focalLenght * rotatedY) / (focalLenght + rotatedZ + 500) + (SCREEN_HEIGHT / 2);
+        int projectedX = (focalLength * rotatedX) / (focalLength + rotatedZ + 500) + (SCREEN_WIDTH / 2);
+        int projectedY = (focalLength * rotatedY) / (focalLength + rotatedZ + 500) + (SCREEN_HEIGHT / 2);
         if ((projectedX + projectedY * SCREEN_WIDTH) < (SCREEN_HEIGHT * SCREEN_WIDTH))
         {
             pixels[projectedX + projectedY * SCREEN_WIDTH] = 0xff0000ff;
@@ -61,8 +61,7 @@ void softwareRenderer::drawPolygon(polygon *polygon)
         int y1 = polygon->getProjectedPointTable().at(points.at(0)).Y;
         int x2 = polygon->getProjectedPointTable().at(points.at(1)).X;
         int y2 = polygon->getProjectedPointTable().at(points.at(1)).Y;
-        int x = x1;
-        int y = y1;
+
         int dx = abs(x2 - x1);
         int sx = x1 < x2 ? 1 : -1;
         int dy = -abs(y2 - y1);
@@ -80,11 +79,11 @@ void softwareRenderer::drawPolygon(polygon *polygon)
             int e2 = 2 * error;
             if (e2 >= dy)
             {
+                if (x1 == x2)
+                    break;
+                error = error + dy;
+                x1 = x1 + sx;
             }
-            if (x1 == x2)
-                break;
-            error = error + dy;
-            x1 = x1 + sx;
             if (e2 <= dx)
             {
                 if (y1 == y2)

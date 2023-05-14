@@ -64,7 +64,7 @@ int main()
             }
         }
 
-        cube->setRotation({cube->getRotation().X, cube->getRotation().Y, cube->getRotation().Z + (0.001 * deltatime)});
+        cube->setRotation({cube->getRotation().X, cube->getRotation().Y + (0.001 * deltatime), cube->getRotation().Z});
 
         renderer->drawPolygon(cube);
 
