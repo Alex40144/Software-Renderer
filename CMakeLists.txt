@@ -5,9 +5,9 @@ set(CMAKE_BUILD_TYPE Debug)
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++20")
 
 # Our project name
-project (ButtonFactory)
+project (SoftwareRenderer)
 include_directories(include)
-add_executable(ButtonFactory main.cpp include/vec2.h)
+add_executable(SoftwareRenderer main.cpp include/)
 
 # For finding our SDL2 package!
 INCLUDE(FindPkgConfig)
@@ -19,4 +19,4 @@ PKG_SEARCH_MODULE(SDL2 REQUIRED sdl2)
 INCLUDE_DIRECTORIES(${SDL2_INCLUDE_DIRS})
 
 # Linking SDL2 library with our project.
-target_link_libraries(ButtonFactory ${SDL2_LIBRARIES})
+target_link_libraries(SoftwareRenderer ${SDL2_LIBRARIES})
