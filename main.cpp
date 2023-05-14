@@ -64,8 +64,8 @@ int main()
             }
         }
 
-        cube->setRotation({cube->getRotation().X + (0.001 * deltatime), cube->getRotation().Y + (0.001 * deltatime), cube->getRotation().Z});
-        printf("%f\n", cube->getRotation().Y);
+        cube->setRotation({cube->getRotation().X, cube->getRotation().Y, cube->getRotation().Z + (0.001 * deltatime)});
+
         renderer->drawPolygon(cube);
 
         renderer->render();

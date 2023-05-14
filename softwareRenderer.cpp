@@ -40,7 +40,7 @@ void softwareRenderer::drawPolygon(polygon *polygon)
         rotatedZ = (-sin(Rotation.Y) * rotatedX) + (0 * rotatedY) + (cos(Rotation.Y) * rotatedZ);
         // X rotation
         rotatedX = (1 * rotatedX) + (0 * rotatedY) + (0 * rotatedZ);
-        rotatedY = (0 * rotatedX) + (cos(Rotation.X) * rotatedY) + (sin(Rotation.X) * rotatedZ);
+        rotatedY = (0 * rotatedX) + (cos(Rotation.X) * rotatedY) + (-sin(Rotation.X) * rotatedZ);
         rotatedZ = (0 * rotatedX) + (sin(Rotation.X) * rotatedY) + (cos(Rotation.X) * rotatedZ);
 
         int projectedX = (focalLenght * rotatedX) / (focalLenght + rotatedZ + 500) + (SCREEN_WIDTH / 2);
@@ -71,7 +71,10 @@ void softwareRenderer::drawPolygon(polygon *polygon)
 
         while (1)
         {
-            pixels[x1 + y1 * SCREEN_WIDTH] = 0xff0000ff;
+            if ((x1 + y1 * SCREEN_WIDTH) < (SCREEN_HEIGHT * SCREEN_WIDTH))
+            {
+                pixels[x1 + y1 * SCREEN_WIDTH] = 0xff0000ff;
+            }
             if (x1 == x2 && y1 == y2)
                 break;
             int e2 = 2 * error;
