@@ -30,21 +30,22 @@ void softwareRenderer::drawPolygon(polygon *polygon)
         int z = polygon->getPointTable().at(i).Z;
         Vec3<double> Rotation = polygon->getRotation();
 
-        // Z rotation
-        double rotatedX = (cos(Rotation.Z) * x) + (-sin(Rotation.Z) * y) + (0 * z);
-        double rotatedY = (sin(Rotation.Z) * x) + (cos(Rotation.Z) * y) + (0 * z);
-        double rotatedZ = (0 * x) + (0 * y) + (1 * z);
-        // Y rotation
-        rotatedX = (cos(Rotation.Y) * rotatedX) + (0 * rotatedY) + (sin(Rotation.Y) * rotatedZ);
-        rotatedY = (0 * rotatedX) + (1 * rotatedY) + (0 * rotatedZ);
-        rotatedZ = (-sin(Rotation.Y) * rotatedX) + (0 * rotatedY) + (cos(Rotation.Y) * rotatedZ);
-        // X rotation
-        rotatedX = (1 * rotatedX) + (0 * rotatedY) + (0 * rotatedZ);
-        rotatedY = (0 * rotatedX) + (cos(Rotation.X) * rotatedY) + (-sin(Rotation.X) * rotatedZ);
-        rotatedZ = (0 * rotatedX) + (sin(Rotation.X) * rotatedY) + (cos(Rotation.X) * rotatedZ);
+        float firstX = (1 * x) + (0 * y) + (0 * z);
+        float firstY = (0 * x) + (cos(Rotation.X) * y) + (-sin(Rotation.X) * z);
+        float firstZ = (0 * x) + (sin(Rotation.X) * y) + (cos(Rotation.X) * z);
 
-        int projectedX = (focalLength * rotatedX) / (focalLength + rotatedZ + 500) + (SCREEN_WIDTH / 2);
-        int projectedY = (focalLength * rotatedY) / (focalLength + rotatedZ + 500) + (SCREEN_HEIGHT / 2);
+        // Z rotation
+        float secondX = (cos(Rotation.Z) * firstX) + (-sin(Rotation.Z) * firstY) + (0 * firstZ);
+        float secondY = (sin(Rotation.Z) * firstX) + (cos(Rotation.Z) * firstY) + (0 * firstZ);
+        float secondZ = (0 * firstX) + (0 * firstY) + (1 * firstZ);
+        // Y rotation
+        float thirdX = (cos(Rotation.Y) * secondX) + (0 * secondY) + (sin(Rotation.Y) * secondZ);
+        float thirdY = (0 * secondX) + (1 * secondY) + (0 * secondZ);
+        float thirdZ = (-sin(Rotation.Y) * secondX) + (0 * secondY) + (cos(Rotation.Y) * secondZ);
+        // X rotation
+
+        int projectedX = (focalLength * thirdX) / (focalLength + thirdZ + 500) + (SCREEN_WIDTH / 2);
+        int projectedY = (focalLength * thirdY) / (focalLength + thirdZ + 500) + (SCREEN_HEIGHT / 2);
         if ((projectedX + projectedY * SCREEN_WIDTH) < (SCREEN_HEIGHT * SCREEN_WIDTH))
         {
             pixels[projectedX + projectedY * SCREEN_WIDTH] = 0xff0000ff;
